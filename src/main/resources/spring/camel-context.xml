@@ -5,6 +5,8 @@
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
     <!-- Spring Boot StandAlone -->
 	<!--camel:sslContextParameters id="MySslContextParameter">
 		<camel:keyManagers keyPassword="secret">
@@ -44,26 +46,6 @@
 			</get>
 		</rest>
 
-
-        <!-- BUG: If you change the port="{{rest.port}} to port=8090, it works -->
-	    <!--
-	    		<restConfiguration component="restlet" contextPath="/rest" port="{{rest.port}}">
-	    		<restConfiguration component="restlet" contextPath="/rest" port="8090">
-	    		<restConfiguration component="restlet" contextPath="/rest" port="{{env:RESTPORT}}">
-	    		<restConfiguration component="restlet" contextPath="/rest" port="${env:RESTPORT}">
-		-->
-		<!--propertyPlaceholder id="properties" location="classpath:application.properties"/>
-
-		<restConfiguration component="restlet" contextPath="/rest" port="{{restlet.port}}">
-	    	<dataFormatProperty key="prettyPrint" value="true"/>
-	    </restConfiguration>
-
-	    <rest path="/myexample">
-	        <post consumes="application/xml" produces="test/plain" outType="java.lang.String">
-	        	<to uri="direct:myExample"/>
-	        </post>
-	    </rest-->
-
 		<route id="rest-get">
 			<from uri="direct:myExample"/>
 			<log message="This request is handled by this POD: {{env:HOSTNAME}}  "/>
@@ -71,30 +53,6 @@
 				<simple>Hey your rest port is working now --> Enjoy your camel #Microservices | POD : {{env:HOSTNAME}} \n</simple>
 			</setBody>
 		</route>
-
-		<!--route id="_route1">
-			<from uri="direct:myExample"/>
-
-			<convertBodyTo type="java.lang.String"/>
-				
-			<log message="======================== ${body} ==========================" />
-								
-			<choice>
-				<when>
-					<xpath>//person/address/country = 'INDIA'</xpath>
-					<log message="Found Country = INDIA" />						
-				</when>
-				<otherwise>
-					<log message="Found Country = NULL" />
-				</otherwise>
-			</choice>				
-			
-			<setBody>
-				<constant>DONE</constant>
-			</setBody>
-			<to uri="{{mock.end.uri}}" />
-
-		</route-->
 
 	</camelContext>
 
