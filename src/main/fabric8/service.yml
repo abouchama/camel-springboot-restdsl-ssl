@@ -1,0 +1,25 @@
+metadata:
+  annotations:
+    fabric8.io/iconUrl: "img/icons/camel.svg"
+  labels:
+    expose: "true"
+    provider: "fabric8"
+    project: "camel-springboot-restdsl-ssl"
+    version: "1.0.0"
+    group: "com.abouchama"
+  name: "camel-springboot-restdsl-ssl"
+spec:
+  ports:
+  - name: "http"
+    port: 80
+    protocol: "TCP"
+    targetPort: 8080
+  - name: "https"
+    port: 5117
+    protocol: "TCP"
+    targetPort: 5117
+  selector:
+    project: "camel-springboot-restdsl-ssl"
+    provider: "fabric8"
+    group: "com.abouchama"
+  type: "ClusterIP"
