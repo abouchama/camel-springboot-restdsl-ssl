@@ -8,20 +8,22 @@
 
 
     <!-- Spring Boot StandAlone -->
-	<!--camel:sslContextParameters id="MySslContextParameter">
-		<camel:keyManagers keyPassword="secret">
-			<camel:keyStore resource="src/main/deployments/keys/jboss.keystore.jks" password="secret" />
+	<camel:sslContextParameters id="MySslContextParameter">
+		<camel:keyManagers keyPassword="password">
+			<!--camel:keyStore resource="src/main/deployments/keys/jboss.keystore.jks" password="secret" /-->
+			<camel:keyStore resource="src/main/deployments/keys/keystore.jks" password="password" />
 		</camel:keyManagers>
 		<camel:trustManagers>
-			<camel:keyStore resource="src/main/deployments/keys/jboss.truststore.jks" password="secret" />
+			<!--camel:keyStore resource="src/main/deployments/keys/jboss.truststore.jks" password="secret" /-->
+			<camel:keyStore resource="src/main/deployments/keys/truststore.ts" password="password" />
 		</camel:trustManagers>
 		<camel:serverParameters  clientAuthentication="NONE"/>
-	</camel:sslContextParameters-->
+	</camel:sslContextParameters>
     <!-- End: Spring Boot StandAlone -->
 
     <!-- OpenShift -->
 
-    <camel:sslContextParameters id="MySslContextParameter">
+    <!--camel:sslContextParameters id="MySslContextParameter">
         <camel:keyManagers keyPassword="secret">
             <camel:keyStore resource="/deployments/keys/jboss.keystore.jks" password="secret" />
         </camel:keyManagers>
@@ -29,7 +31,7 @@
             <camel:keyStore resource="/deployments/keys/jboss.truststore.jks" password="secret" />
         </camel:trustManagers>
         <camel:serverParameters  clientAuthentication="NONE"/>
-    </camel:sslContextParameters>
+    </camel:sslContextParameters-->
 
     <!-- End: OpenShift -->
 

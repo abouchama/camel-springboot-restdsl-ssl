@@ -90,3 +90,25 @@ If everything works with the following curl command:
 $ curl --insecure https://camel-springboot-restdsl-ssl-myproject.192.168.42.241.nip.io/myexample/customers
 Hey your rest port is working now --> Enjoy your camel #Microservices | POD : camel-springboot-restdsl-1-gzgpr
 ```
+
+# How to generate certificate for localhost test:
+```
+keytool -genkey -alias replserver \
+    -keyalg RSA -keystore keystore.jks \
+    -dname "cn=localhost, ou=IT, o=Continuent, c=US" \
+    -storepass password -keypass password
+
+keytool -export -alias replserver -file client.cer -keystore keystore.jks
+
+
+keytool -import -trustcacerts -alias replserver -file client.cer \
+    -keystore truststore.ts -storepass password -noprompt
+```
+
+# In order to avoid the following exception:
+sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+
+```
+keytool -importcert -file client.cer -alias replserver -keystore $JAVA_HOME/jre/lib/security/cacerts
+enter PW: changeit
+```
