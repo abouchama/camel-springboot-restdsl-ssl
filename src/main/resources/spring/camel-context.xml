@@ -8,17 +8,22 @@
 
 
     <!-- Spring Boot StandAlone -->
-	<camel:sslContextParameters id="MySslContextParameter">
-		<camel:keyManagers keyPassword="password">
-			<!--camel:keyStore resource="src/main/deployments/keys/jboss.keystore.jks" password="secret" /-->
-			<camel:keyStore resource="src/main/deployments/keys/keystore.jks" password="password" />
-		</camel:keyManagers>
-		<camel:trustManagers>
-			<!--camel:keyStore resource="src/main/deployments/keys/jboss.truststore.jks" password="secret" /-->
-			<camel:keyStore resource="src/main/deployments/keys/truststore.ts" password="password" />
-		</camel:trustManagers>
-		<camel:serverParameters  clientAuthentication="NONE"/>
-	</camel:sslContextParameters>
+    <camel:keyStoreParameters id="keystore"
+                              camelContextId="exampleSsl"
+                              resource="{{keyStoreParameters.resource}}"
+                              type="{{keyStoreParameters.type}}"
+                              provider="{{keyStoreParameters.provider}}"
+                              password="{{keyStoreParamerers.password}}" />
+
+    <camel:keyStoreParameters id="trustsore"
+                              camelContextId="exampleSsl"
+                              resource="{{trustStoreParameters.resource}}"
+                              type="{{trustStoreParameters.type}}"
+                              provider="{{trustStoreParameters.provider}}"
+                              password="{{trustStoreParamerers.password}}" />
+
+    <camel:sslContextParameters id="MySslContextParameter" camelContextId="exampleSsl" />
+
     <!-- End: Spring Boot StandAlone -->
 
     <!-- OpenShift -->
@@ -35,8 +40,7 @@
 
     <!-- End: OpenShift -->
 
-	<!-- Define a traditional camel context here -->
-	<camelContext id="camel" streamCache="true" xmlns="http://camel.apache.org/schema/spring">
+	<camelContext id="exampleSsl" streamCache="true" xmlns="http://camel.apache.org/schema/spring">
 
 		<restConfiguration bindingMode="off" component="restlet" port="5117" scheme="https">
 			<camel:endpointProperty key="sslContextParameters" value="#MySslContextParameter"/>
