@@ -22,7 +22,9 @@
                               provider="{{trustStoreParameters.provider}}"
                               password="{{trustStoreParamerers.password}}" />
 
-    <camel:sslContextParameters id="MySslContextParameter" camelContextId="exampleSsl" />
+    <camel:sslContextParameters id="MySslContextParameter" camelContextId="exampleSsl" >
+        <camel:serverParameters clientAuthentication="{{clientAuthentication}}"/>
+    </camel:sslContextParameters>
 
     <!-- End: Spring Boot StandAlone -->
 
