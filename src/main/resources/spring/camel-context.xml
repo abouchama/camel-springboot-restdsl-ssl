@@ -6,26 +6,16 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-
     <!-- Spring Boot StandAlone -->
-    <camel:keyStoreParameters id="keystore"
-                              camelContextId="exampleSsl"
-                              resource="{{keyStoreParameters.resource}}"
-                              type="{{keyStoreParameters.type}}"
-                              provider="{{keyStoreParameters.provider}}"
-                              password="{{keyStoreParamerers.password}}" />
-
-    <camel:keyStoreParameters id="trustsore"
-                              camelContextId="exampleSsl"
-                              resource="{{trustStoreParameters.resource}}"
-                              type="{{trustStoreParameters.type}}"
-                              provider="{{trustStoreParameters.provider}}"
-                              password="{{trustStoreParamerers.password}}" />
-
-    <camel:sslContextParameters id="MySslContextParameter" camelContextId="exampleSsl" >
-        <camel:serverParameters clientAuthentication="{{clientAuthentication}}"/>
-    </camel:sslContextParameters>
-
+	<camel:sslContextParameters id="MySslContextParameter">
+		<camel:keyManagers keyPassword="password">
+			<camel:keyStore password="password" resource="src/main/deployments/keys/keystore.jks"/>
+		</camel:keyManagers>
+		<camel:trustManagers>
+			<camel:keyStore password="password" resource="src/main/deployments/keys/truststore.ts"/>
+		</camel:trustManagers>
+		<camel:serverParameters clientAuthentication="REQUIRE"/>
+	</camel:sslContextParameters>
     <!-- End: Spring Boot StandAlone -->
 
     <!-- OpenShift -->
