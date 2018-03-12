@@ -7,7 +7,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <!-- Spring Boot StandAlone -->
-	<camel:sslContextParameters id="MySslContextParameter">
+	<!--camel:sslContextParameters id="MySslContextParameter">
 		<camel:keyManagers keyPassword="password">
 			<camel:keyStore password="password" resource="src/main/deployments/keys/keystore.jks"/>
 		</camel:keyManagers>
@@ -15,6 +15,25 @@
 			<camel:keyStore password="password" resource="src/main/deployments/keys/truststore.ts"/>
 		</camel:trustManagers>
 		<camel:serverParameters clientAuthentication="REQUIRE"/>
+	</camel:sslContextParameters-->
+	
+	<!-- Using Property PlaceHolder -->
+	<camel:sslContextParameters id="MySslContextParameter">
+	<camel:serverParameters clientAuthentication="{{clientAuthentication}}"/>
+	<camel:trustManagers>
+		<camel:keyStore id="trustsore"
+						resource="{{trustStoreParameters.resource}}"
+						type="{{trustStoreParameters.type}}"
+						provider="{{trustStoreParameters.provider}}"
+						password="{{trustStoreParameters.password}}" />
+	</camel:trustManagers>
+	<camel:keyManagers>
+		<camel:keyStore id="keystore"
+						resource="{{keyStoreParameters.resource}}"
+						type="{{keyStoreParameters.type}}"
+						provider="{{keyStoreParameters.provider}}"
+						password="{{keyStoreParameters.password}}" />
+	</camel:keyManagers>
 	</camel:sslContextParameters>
     <!-- End: Spring Boot StandAlone -->
 
